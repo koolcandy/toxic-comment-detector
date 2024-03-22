@@ -29,15 +29,23 @@ def clean_text(text):
     )
 
 def main():
+    # 从CSV文件中读取训练数据
     df_train = pd.read_csv('/Users/hitt/Documents/crtical skill project/datas/train.csv')
     df_train['comment_text'] = df_train['comment_text'].apply(lambda text : clean_text(text))
 
+    # 定义要训练模型的列
     cols = ['toxic', 'severe_toxic', 'obscene', 'threat','insult', 'identity_hate']
 
+    # 提取'comment_text'列作为输入数据
     X = df_train['comment_text']
+    
+    # 创建一个具有指定参数的TfidfVectorizer对象
     tfd = TfidfVectorizer(stop_words='english',max_features=5000)
+    
+    # 将输入数据转换为TF-IDF矩阵
     X_data = tfd.fit_transform(X)
 
+    # 创建一个具有指定参数的LogisticRegression对象
     lr = LogisticRegression(C=12,max_iter=500)
 
     # 创建/model目录，如果它不存在
