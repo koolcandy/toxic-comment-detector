@@ -34,7 +34,9 @@ def main(words):
     model = genai.GenerativeModel('gemini-pro')
     data = {
         'words': words,
-        'prompt': 'What is the toxicity of this text?, answer by json format, just a json no markdown format ,the judgement is on[\'toxic\', \'severe_toxic\', \'obscene\', \'threat\',\'insult\', \'identity_hate\'], max is 1 and min is 0'
+        'prompt': 'What is the toxicity of this text?, answer by json format, just a json no markdown format ,\
+            the judgement is on[\'toxic\', \'severe_toxic\', \'obscene\', \'threat\',\'insult\', \'identity_hate\'],\
+            max is 1 and min is 0'
     }
     data = str(data)
     response = model.generate_content(data)
