@@ -13,7 +13,9 @@ def check_words_Chinese(words):
     Returns:
         bool: True if any toxic Chinese word is found, False otherwise.
     """
-    toxic_files = [os.path.join(config.work_dir, 'badwords', '广告.txt'), os.path.join(config.work_dir, 'badwords', '色情类.txt'), os.path.join(config.work_dir, 'badwords', '政治类.txt')]
+    toxic_files = [os.path.join(config.work_dir, 'badwords', '广告.txt'), \
+                   os.path.join(config.work_dir, 'badwords', '色情类.txt'), \
+                   os.path.join(config.work_dir, 'badwords', '政治类.txt')]
     #os.path.join能匹配适合系统的路径分隔符
     toxic_words = []
     #创建字典
