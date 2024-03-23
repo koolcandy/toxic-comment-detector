@@ -18,11 +18,12 @@ def check_words_Chinese(words):
                    os.path.join(config.work_dir, 'badwords', '政治类.txt')]
     #os.path.join能匹配适合系统的路径分隔符
     toxic_words = []
-    #创建字典
+    #创建列表
     for file in toxic_files:
-        with open(file, 'r', encoding='utf-8') as f:
-            toxic_words.extend(f.read().split('\n'))
-    #写入字典
+        with open(file, 'r', encoding='utf-8') as file:
+            toxic_words.extend(file.read().split('\n'))
+    
+    #写入列表
     for word in toxic_words:
         if word in words and word != '':
             print('Bad cn word matched:', word)
