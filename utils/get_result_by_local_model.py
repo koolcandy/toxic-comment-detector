@@ -63,5 +63,4 @@ def main(comment):
     for label in cols:
         lr = joblib.load(os.path.join(config.work_dir, 'model', f'{label}_model.pkl'))
         predictions[label] = lr.predict_proba(comment_data)[:,1].tolist()[0]
-    print('Local model result:', predictions)
     return predictions
