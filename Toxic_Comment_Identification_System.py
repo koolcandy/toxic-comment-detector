@@ -1,7 +1,6 @@
 import json
 import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from cleantext import clean
 
 from utils import train_model
 from utils import check_words
@@ -10,7 +9,6 @@ from utils import get_result_by_gemini
 # encoding:utf-8
 
 import urllib.parse
-import google.generativeai as genai
 
 work_dir = os.path.dirname(os.path.abspath(__file__))
 
