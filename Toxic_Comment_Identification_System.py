@@ -3,10 +3,10 @@ import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from cleantext import clean
 
-import utils.train_model as train_model
-import utils.check_words as check_words
-import utils.get_result_by_local_model as get_result_by_local_model
-import utils.get_result_by_gemini as get_result_by_gemini
+from utils import train_model
+from utils import check_words
+from utils import get_result_by_local_model
+from utils import get_result_by_gemini
 # encoding:utf-8
 
 import urllib.parse
