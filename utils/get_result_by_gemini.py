@@ -9,7 +9,7 @@ import google.generativeai as genai
 
 work_dir = os.path.dirname(os.path.abspath(__file__))
 
-with open(os.path.join(os.path.dirname(os.path.dirname(work_dir)), 'config.yaml'), 'r') as f:
+with open(os.path.join(os.path.dirname(work_dir), 'config.yaml'), 'r') as f:
     config = yaml.safe_load(f)
     gemini_api_key = config['gemini_api_key']
 
