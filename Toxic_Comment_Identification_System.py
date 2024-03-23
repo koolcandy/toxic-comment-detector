@@ -15,7 +15,7 @@ import urllib.parse
 
 def get_result(words):
     if check_words.main(words):
-        print('Local bad words not matched')
+        print('Local bad word matched')
         result = {
             'toxic': 1,
             'severe_toxic': 0,
