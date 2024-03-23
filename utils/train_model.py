@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 import os
 
-work_dir = os.path.dirname(os.path.abspath(__file__))
+from utils import config
 
 def clean_text(text):
     return clean(text,
@@ -32,7 +32,7 @@ def clean_text(text):
 
 def main():
     # 从CSV文件中读取训练数据
-    df_train = pd.read_csv(os.path.join(work_dir, 'datas', 'train.csv'))
+    df_train = pd.read_csv(os.path.join(config.work_dir, 'datas', 'train.csv'))
     df_train['comment_text'] = df_train['comment_text'].apply(lambda text : clean_text(text))
 
     # 定义要训练模型的列

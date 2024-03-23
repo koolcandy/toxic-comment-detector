@@ -6,11 +6,12 @@ from utils import train_model
 from utils import check_words
 from utils import get_result_by_local_model
 from utils import get_result_by_gemini
+from utils import config
 # encoding:utf-8
 
 import urllib.parse
 
-work_dir = os.path.dirname(os.path.abspath(__file__))
+
 
 def get_result(words):
     if check_words.main(words):
@@ -27,7 +28,6 @@ def get_result(words):
     else:
         print('Local bad words not matched, start to use local model to predict...')
         result = get_result_by_local_model.main(words)
-        print('Local model result:', result)
         toxic_score = result['toxic']
         if toxic_score > 0.3:
             return result
@@ -53,7 +53,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     #http服务器
 
 def main():
-    if not os.path.exists(os.path.join(work_dir, 'model')):
+    if not os.path.exists(os.path.join(config.work_dir, 'model')):
         print('Local models not founded, start raining model...')
         train_model.main()
         print('Local models trained successfully.')

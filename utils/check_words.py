@@ -1,7 +1,7 @@
 import os
 import json
 
-work_dir = os.path.dirname(os.path.abspath(__file__))
+from utils import config
 
 def check_words_Chinese(words):
     """
@@ -13,7 +13,7 @@ def check_words_Chinese(words):
     Returns:
         bool: True if any toxic Chinese word is found, False otherwise.
     """
-    toxic_files = [os.path.join(work_dir, 'badwords', '广告.txt'), os.path.join(work_dir, 'badwords', '色情类.txt'), os.path.join(work_dir, 'badwords', '涉枪涉爆违法信息关键词.txt'), os.path.join(work_dir, 'badwords', '网址.txt'), os.path.join(work_dir, 'badwords', '政治类.txt')]
+    toxic_files = [os.path.join(config.work_dir, 'badwords', '广告.txt'), os.path.join(config.work_dir, 'badwords', '色情类.txt'), os.path.join(config.work_dir, 'badwords', '政治类.txt')]
     #os.path.join能匹配适合系统的路径分隔符
     toxic_words = []
     #创建字典
@@ -28,7 +28,7 @@ def check_words_Chinese(words):
     return False
 
 def check_words_English(words):
-    toxic_files = os.path.join(work_dir, 'badwords', 'words.json')
+    toxic_files = os.path.join(config.work_dir, 'badwords', 'words.json')
     with open(toxic_files, 'r') as file:
         toxic_words = json.load(file)
     for word in toxic_words:
@@ -40,3 +40,4 @@ def check_words_English(words):
 def main(words):
     if check_words_Chinese(words) or check_words_English(words):
         return True
+
