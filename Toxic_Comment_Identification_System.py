@@ -6,12 +6,13 @@ from utils import train_model
 from utils import get_result_by_local_model
 from utils import config
 import urllib.parse
+from textblob import TextBlob
 # encoding:utf-8
 
 def get_result(words):
 
     print('Local bad words not matched, start to use local model to predict...')
-    result = get_result_by_local_model.main(words)
+    result = get_result_by_local_model.main(TextBlob(words))
     print('Local model result: %s' % result)
 
     return result
