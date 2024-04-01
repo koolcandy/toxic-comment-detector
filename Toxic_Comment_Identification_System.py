@@ -12,15 +12,19 @@ import urllib.parse
 # encoding:utf-8
 
 def get_result(words):
-    log_file = os.path.join(config.work_dir, 'log.txt')
-    logging.basicConfig(filename=log_file, level=logging.INFO)
-    # Add console logging
-    console = logging.StreamHandler()
-    console.setLevel(logging.INFO)
-    logging.getLogger('').addHandler(console)
+    # log_file = os.path.join(config.work_dir, 'log.txt')
+    # logging.basicConfig(filename=log_file, level=logging.INFO)
+    # # Add console logging
+
+    # console = logging.StreamHandler()
+    # console.setLevel(logging.INFO)
+
+    # if not logging.getLogger('').hasHandlers():
+    #     print('add console')
+    #     logging.getLogger('').addHandler(console)
     
     if check_words.main(words):
-        logging.info('Local bad word matched')
+        print('Local bad word matched')
         result = {
             'toxic': 1,
             'severe_toxic': 0,
@@ -31,16 +35,16 @@ def get_result(words):
         }
         return result
     else:
-        logging.info('Local bad words not matched, start to use local model to predict...')
+        print('Local bad words not matched, start to use local model to predict...')
         result = get_result_by_local_model.main(words)
-        logging.info('Local model result: %s' % result)
+        print('Local model result: %s' % result)
         toxic_score = result['toxic']
         if toxic_score > 0.3:
             return result
         else:
-            logging.info('Local model not matched, start to use Gemini model to predict...')
+            print('Local model not matched, start to use Gemini model to predict...')
             gemini_result = get_result_by_gemini.main(words)
-            logging.info('Gemini model result: %s' % gemini_result)
+            print('Gemini model result: %s' % gemini_result)
             return gemini_result
 
 class RequestHandler(BaseHTTPRequestHandler):
