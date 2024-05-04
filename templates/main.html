@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Toxic Comment Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <h1>Toxic Comment Detector</h1>
+        <h3>This application uses a Bidirectional LSTM RNN model to predict the inappropriateness of a comment</h3>
+
+        <label for="comment">Enter Comment:</label>
+        <form action="/predict" method="POST">
+            <div class="form-group">
+                <textarea class="form-control" name="comment" id="comment" rows="10"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        
+    </div>
+</body>
+</html>

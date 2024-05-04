@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 import os
 
-from utils import config
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def clean_text(text):
     return clean(text,
@@ -32,7 +32,7 @@ def clean_text(text):
 
 def main():
     # 从CSV文件中读取训练数据
-    df_train = pd.read_csv(os.path.join(config.work_dir, 'datas', 'train.csv'))
+    df_train = pd.read_csv(os.path.join(base_dir, 'datas', 'train.csv'))
     df_train['comment_text'] = df_train['comment_text'].apply(lambda text : clean_text(text))
 
     # 定义要训练模型的列
@@ -42,7 +42,7 @@ def main():
     X = df_train['comment_text']
     
     # 创建一个具有指定参数的TfidfVectorizer对象
-    tfd = TfidfVectorizer(stop_words='english',max_features=5000)
+    tfd = TfidfVectorizer(stop_words='english',max_features=20000)
     
     # 将输入数据转换为TF-IDF矩阵
     X_data = tfd.fit_transform(X)
@@ -52,14 +52,16 @@ def main():
 
     # 创建/model目录，如果它不存在
     if not os.path.exists('model'):
-        os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'model'))
+        os.makedirs(os.path.join(base_dir, 'model'))
 
     # 训练模型并保存
     for label in cols:
         y_train = df_train[label]
         lr.fit(X_data,y_train)
-        joblib.dump(lr, os.path.join(os.path.dirname(os.path.abspath(__file__)),'model', f'{label}_model.pkl'))
+        joblib.dump(lr, os.path.join(base_dir,'model', f'{label}_model.pkl'))
 
     # 保存 TfidfVectorizer
-    joblib.dump(tfd, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'model', 'tfidf_vectorizer.pkl'))
+    joblib.dump(tfd, os.path.join(base_dir, 'model', 'tfidf_vectorizer.pkl'))
 
+if __name__ == '__main__':
+    main()

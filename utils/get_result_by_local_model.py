@@ -1,12 +1,10 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
 import os
 import joblib
 from cleantext import clean
 
 # encoding:utf-8
 
-
-from utils import config
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def clean_text(text):
     """
@@ -52,7 +50,7 @@ def main(comment):
           The keys of the dictionary are the labels ('toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate'),
           and the values are the corresponding prediction probabilities.
     """
-    tfd = joblib.load(os.path.join(config.work_dir, 'model', 'tfidf_vectorizer.pkl'))
+    tfd = joblib.load(os.path.join(base_dir, 'model', 'tfidf_vectorizer.pkl'))
 
     cols = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
 
@@ -61,6 +59,6 @@ def main(comment):
 
     predictions = {}
     for label in cols:
-        lr = joblib.load(os.path.join(config.work_dir, 'model', f'{label}_model.pkl'))
+        lr = joblib.load(os.path.join(base_dir, 'model', f'{label}_model.pkl'))
         predictions[label] = lr.predict_proba(comment_data)[:,1].tolist()[0]
     return predictions
