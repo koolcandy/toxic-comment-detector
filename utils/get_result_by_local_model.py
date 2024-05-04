@@ -60,5 +60,5 @@ def main(comment):
     predictions = {}
     for label in cols:
         lr = joblib.load(os.path.join(base_dir, 'model', f'{label}_model.pkl'))
-        predictions[label] = lr.predict_proba(comment_data)[:,1].tolist()[0]
+        predictions[label] = round(float(lr.predict_proba(comment_data)[:,1].tolist()[0]), 3)
     return predictions

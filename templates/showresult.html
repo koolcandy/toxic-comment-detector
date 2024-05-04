@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>结果展示</title>
   <style>
+    .container {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+
     .bar {
       width: 100%;
       background-color: #e0e0e0;
       height: 20px;
       margin: 10px 0;
     }
+
     .bar-fill {
       height: 100%;
       background-color: #4285f4;
@@ -19,16 +26,17 @@
     }
   </style>
 </head>
-<body>
+
+<body class="container">
   <h1>对"{{comment}}"的有毒程度的分析结果</h1>
 
   {% for category in ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate'] %}
-    <div>
-      <label>{{ category }}</label>
-      <div class="bar">
-        <div class="bar-fill" id="{{ category }}_bar" data-value="{{ result[category] }}"></div>
-      </div>
+  <div>
+    <label>{{ category }} {{ (result[category]*100) }}%</label>
+    <div class="bar">
+      <div class="bar-fill" id="{{ category }}_bar" data-value="{{ result[category] }}"></div>
     </div>
+  </div>
   {% endfor %}
 
   <script>
@@ -39,4 +47,5 @@
     });
   </script>
 </body>
+
 </html>
