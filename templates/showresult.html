@@ -32,7 +32,7 @@
 
   {% for category in ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate'] %}
   <div>
-    <label>{{ category }} {{ (result[category]*100) }}%</label>
+    <label>{{ category }} {{ (result[category]*100)|round(2) }}%</label>
     <div class="bar">
       <div class="bar-fill" id="{{ category }}_bar" data-value="{{ result[category] }}"></div>
     </div>
