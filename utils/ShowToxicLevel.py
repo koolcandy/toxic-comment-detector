@@ -37,7 +37,7 @@ def train():
     df_train = pd.read_csv(os.path.join(base_dir, 'datas', 'train.csv'))
     df_train['comment_text'] = df_train['comment_text'].apply(lambda text : clean_text(text))
 
-    cols = ['severe_toxic', 'obscene', 'threat','insult', 'identity_hate']
+    cols = ['obscene', 'threat','insult', 'identity_hate']
 
     X = df_train['comment_text']
     
@@ -64,7 +64,7 @@ def getResult(comment):
     
     tfd = joblib.load(os.path.join(base_dir, 'model', 'toxiclevel', 'tfidf_vectorizer.pkl'))
 
-    cols = ['severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
+    cols = ['obscene', 'threat', 'insult', 'identity_hate']
 
     cleaned_comment = clean_text(comment)
     comment_data = tfd.transform([cleaned_comment])
