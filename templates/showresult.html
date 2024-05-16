@@ -30,7 +30,7 @@
 <body class="container">
   <h1>对"{{comment}}"的有毒程度的分析结果</h1>
 
-  {% for category in ['isToxic', 'probability', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate'] %}
+  {% for category in ['isToxic', 'probability', 'obscene', 'threat', 'insult', 'identity_hate'] %}
   <div>
     <label>{{ category }} {{ (result[category]*100)|round(2) }}%</label>
     <div class="bar">
