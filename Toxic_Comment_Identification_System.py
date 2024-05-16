@@ -16,7 +16,7 @@ def get_result(words):
 
 app = Flask(__name__)
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict/", methods=["POST"])
 def predict():
     comment = request.form["comment"]
     result = get_result(comment)  # 使用您现有的 get_result 函数
