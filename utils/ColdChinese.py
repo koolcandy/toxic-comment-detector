@@ -6,11 +6,13 @@ model = BertForSequenceClassification.from_pretrained('thu-coai/roberta-base-col
 model.eval()
 
 def getResult(comment):
+    result = {}
     model_input = tokenizer(comment,return_tensors="pt",padding=False)
     model_output = model(**model_input, return_dict=True)
     prediction = torch.argmax(model_output[0].cpu(), dim=-1)
     prediction = [p.item() for p in prediction]
-    print(prediction[0]) 
+    result['isToxic'] = prediction[0]
+    return result
 
 if __name__ == '__main__':
     getResult("你是个傻逼")

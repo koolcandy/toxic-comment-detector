@@ -65,7 +65,7 @@ def getResult(text):
     tfd = joblib.load(os.path.join(base_dir,'model', 'istoxic', 'tfidf_vectorizer.pkl'))
     text = tfd.transform([text])
     model = joblib.load(os.path.join(base_dir,'model', 'istoxic', 'toxic_model.pkl'))
-    result['isToxic'] = model.predict(text)[0]
+    result['isToxic'] = 1-model.predict(text)[0]
     result['probability'] = round(max(model.predict_proba(text).tolist()[0]), 2)
     return result
 

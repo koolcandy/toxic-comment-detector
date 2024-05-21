@@ -1,66 +1,75 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Toxic Comment Detector</title>
     <style>
-    body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f2f2f2;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h1, h2, h3 {
-    color: #333;
-  }
-  
-  .form-control {
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-  
-  .results {
-    margin-top: 20px;
-  }
-  
-  .results p {
-    margin-bottom: 5px;
-  }
-  
-  .toxic {
-    color: red;
-  }
-  
-  .severe_toxic {
-    color: darkred;
-  }
-  </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Toxic Comment Detector</h1>
-        <h3>This application uses a Bidirectional LSTM RNN model to predict the inappropriateness of a comment</h3>
+      body {
+        font-family: "Open Sans", sans-serif;
+        background-color: #f2f2f2;
+      }
 
-        <label for="comment">Enter Comment:</label>
-        <form action="/predict" method="POST">
-            <div class="form-group">
-                <textarea class="form-control" name="comment" id="comment" rows="10"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
+
+      .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+
+      .results {
+        margin-top: 20px;
+      }
+
+      .results p {
+        margin-bottom: 5px;
+      }
+
+      .toxic {
+        color: red;
+      }
+
+      .severe_toxic {
+        color: darkred;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Toxic Comment Detector</h1>
+      <h3>
+        This application uses a Bidirectional LSTM RNN model to predict the
+        inappropriateness of a comment
+      </h3>
+      <label for="comment">Enter Comment:</label>
+      <form action="/predict" method="GET">
+        <div class="form-group">
+          <textarea
+            class="form-control"
+            name="comment"
+            id="comment"
+            rows="10"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
-</body>
+  </body>
 </html>

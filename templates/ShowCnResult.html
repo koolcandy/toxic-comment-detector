@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>结果展示</title>
+    <style>
+      .container {
+        padding-left: 50px;
+        padding-right: 50px;
+      }
+
+      .bar {
+        width: 100%;
+        background-color: #e0e0e0;
+        height: 20px;
+        margin: 10px 0;
+      }
+
+      .bar-fill {
+        height: 100%;
+        background-color: #4285f4;
+        width: 0%;
+        transition: width 1s ease-in-out;
+      }
+    </style>
+  </head>
+
+  <body class="container">
+    <h1>对"{{comment}}"的有毒程度的分析结果</h1>
+    <div>
+        <label>isToxic {{ result }}</label>
+      <div class="bar">
+        <div class="bar-fill" id="是否有毒" data-value="{{ result }}"></div>
+      </div>
+    </div>
+
+    <script>
+      const bars = document.querySelectorAll(".bar-fill");
+      bars.forEach((bar) => {
+        const value = parseFloat(bar.dataset.value);
+        bar.style.width = `${value * 100}%`;
+      });
+    </script>
+  </body>
+</html>
