@@ -148,3 +148,4 @@ test2.py
 *.yaml
 *.pkl
 log.txt
+config.json

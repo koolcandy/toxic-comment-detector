@@ -49,17 +49,25 @@
       .severe_toxic {
         color: darkred;
       }
+      .example {
+        color: pink;
+        border: 1px solid #007bff;
+        border-radius: 1px;
+        padding: 5px;
+        width: 50%;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Toxic Comment Detector</h1>
       <h3>
-        This application uses a Bidirectional LSTM RNN model to predict the
-        inappropriateness of a comment
+        This application uses a Bidirectional LSTM RNN model/ haiku power by
+        anthropic to predict the inappropriateness of a comment
       </h3>
       <label for="comment">Enter Comment:</label>
-      <form action="/predict" method="GET">
+      <form id="apiForm" action="/predict/localmodel" method="GET">
+        <div class="form-group"></div>
         <div class="form-group">
           <textarea
             class="form-control"
@@ -68,8 +76,42 @@
             rows="10"
           ></textarea>
         </div>
+        <label for="apiEndpoint">Choose API Endpoint:</label>
+        <select id="apiEndpoint" name="apiEndpoint" onchange="changeAction()">
+          <option value="/predict/localmodel">
+            Predict by local model(english only)
+          </option>
+          <option value="/predict/haiku">
+            Predict by large model by haiku(power by anthropic)
+          </option>
+        </select>
+        <br />
         <button type="submit" class="btn btn-primary">Submit</button>
+        <br />
+        <h4 class="example">I am a good person, I love you all</h4>
+        <h4 class="example">I am a bad person, I hate you all</h4>
+        <h4 class="example">大笨蛋, 讨厌你, 哼~~</h4>
+        <h4 class="example">你好可爱啊, 爱你😍</h4>
       </form>
     </div>
+    <script>
+      function changeAction() {
+        var form = document.getElementById("apiForm");
+        var endpoint = document.getElementById("apiEndpoint").value;
+        form.action = endpoint;
+      }
+
+      function setExample(event) {
+        document.getElementById("comment").value = event.target.textContent;
+      }
+
+      // 获取所有的.example元素
+      var exampleElements = document.querySelectorAll(".example");
+
+      // 为每一个.example元素添加点击事件
+      exampleElements.forEach(function (element) {
+        element.addEventListener("click", setExample);
+      });
+    </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 import os
-from utils import ShowToxicLevel, ShowIsToxic, ColdChinese
+from utils import ShowToxicLevel, ShowIsToxic, ToxicDetectorKaiku
 from textblob import TextBlob
 from flask import Flask, render_template, request
 from langdetect import detect
@@ -11,25 +11,25 @@ def get_result_en(words):
     isToxic = ShowIsToxic.getResult(TextBlob(words))
     toxicLevel = ShowToxicLevel.getResult(TextBlob(words))
     result = {**isToxic, **toxicLevel}
+    if result['isToxic'] == 1:
+        result['isToxic'] = 'yes'
+    else:
+        result['isToxic'] = 'no'
+    print(result)
     return result
-
-def get_result_cn(words):
-    return ColdChinese.getResult(words) #直接用huggingface的模型, 不需要训练, I'm lazy ~~~
-
 app = Flask(__name__)
 
-@app.route("/predict", methods=["GET"])
-def predict():
+@app.route("/predict/localmodel", methods=["GET"])
+def predictLocal():
     comment = request.args.get("comment")
-    lang = detect(comment)
-    if lang == 'en':
-        result = get_result_en(comment)
-        return render_template('ShowEnResult.html', result=result, comment=comment)
-    elif lang == 'zh-cn':
-        result = get_result_cn(comment)
-        return render_template('ShowCnResult.html', result=result['isToxic'], comment=comment)
-    else:
-        return 'Error: Language detection failed'
+    result = get_result_en(comment)
+    return render_template('ShowEnResult.html', result=result, comment=comment)
+    
+@app.route("/predict/haiku", methods=["GET"])
+def predectkaiku():
+    comment = request.args.get("comment")
+    result = ToxicDetectorKaiku.detect_toxicity(comment)
+    return render_template('Resulthaiku.html', result=result)
 
 @app.route("/")
 def home():
