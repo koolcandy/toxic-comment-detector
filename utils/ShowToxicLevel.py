@@ -10,12 +10,9 @@ import os
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def clean_text(text):
-    return clean(text,extra_spaces=True, lowercase=True, numbers=True, punct=True)
-
 def train():
     df_train = pd.read_csv(os.path.join(base_dir, 'datas', 'train.csv'))
-    df_train['comment_text'] = df_train['comment_text'].apply(lambda text : clean_text(text))
+    df_train['comment_text'] = df_train['comment_text'].apply(lambda text : clean(text))
 
     cols = ['obscene', 'threat','insult', 'identity_hate']
 
@@ -46,7 +43,7 @@ def getResult(comment):
 
     cols = ['obscene', 'threat', 'insult', 'identity_hate']
 
-    cleaned_comment = clean_text(comment)
+    cleaned_comment = clean(comment)
     comment_data = tfd.transform([cleaned_comment])
 
     predictions = {}
