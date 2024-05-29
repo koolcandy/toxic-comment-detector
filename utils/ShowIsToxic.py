@@ -39,7 +39,7 @@ def train():
 
 def getResult(text):
     result = {}
-    text = clean_text(text)
+    text = clean(text)
     tfd = joblib.load(os.path.join(base_dir,'model', 'istoxic', 'tfidf_vectorizer.pkl'))
     text = tfd.transform([text])
     model = joblib.load(os.path.join(base_dir,'model', 'istoxic', 'toxic_model.pkl'))
