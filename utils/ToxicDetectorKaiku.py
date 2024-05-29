@@ -8,22 +8,8 @@ with open('config.json') as f:
 def detect_toxicity(comment):
     url = 'https://chatapi.nloli.xyz/v1/chat/completions'
     headers = {
-        'accept': 'application/json, text/event-stream',
-        'accept-language': 'zh,zh-CN;q=0.9,en;q=0.8',
         'authorization': f'Bearer {key}',
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        'origin': 'https://gpt.nloli.xyz',
-        'pragma': 'no-cache',
-        'priority': 'u=1, i',
-        'referer': 'https://gpt.nloli.xyz/',
-        'sec-ch-ua': '"Google Chrome";v="125", "Chromium";v="125", "Not.A/Brand";v="24"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"macOS"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
+        'content-type': 'application/json'
     }
     data = {
         "messages":[

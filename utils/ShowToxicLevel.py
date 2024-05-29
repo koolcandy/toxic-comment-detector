@@ -11,27 +11,7 @@ import os
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def clean_text(text):
-    return clean(text,
-        fix_unicode=True,               
-        to_ascii=True,                  
-        lower=True,                     
-        no_line_breaks=False,           
-        no_urls=False,                  
-        no_emails=False,                
-        no_phone_numbers=False,         
-        no_numbers=False,               
-        no_digits=False,                
-        no_currency_symbols=False,      
-        no_punct=False,                 
-        replace_with_punct="",          
-        replace_with_url="<URL>",
-        replace_with_email="<EMAIL>",
-        replace_with_phone_number="<PHONE>",
-        replace_with_number="<NUMBER>",
-        replace_with_digit="0",
-        replace_with_currency_symbol="<CUR>",
-        lang="en"                       
-    )
+    return clean(text,extra_spaces=True, lowercase=True, numbers=True, punct=True)
 
 def train():
     df_train = pd.read_csv(os.path.join(base_dir, 'datas', 'train.csv'))

@@ -2,7 +2,6 @@ import os
 from utils import ShowToxicLevel, ShowIsToxic, ToxicDetectorKaiku
 from textblob import TextBlob
 from flask import Flask, render_template, request
-from langdetect import detect
 # encoding:utf-8
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -41,4 +40,3 @@ if __name__ == '__main__':
         ShowToxicLevel.train()
         print('Local models trained successfully.')
     app.run(debug=True)
-    # print(get_result("This is a test comment."))
