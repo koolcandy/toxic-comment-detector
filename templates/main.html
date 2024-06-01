@@ -62,11 +62,11 @@
     <div class="container">
       <h1>Toxic Comment Detector</h1>
       <h3>
-        This application uses a Bidirectional LSTM RNN model/ haiku power by
-        anthropic to predict the inappropriateness of a comment
+        This application uses a Bidirectional LSTM RNN model/ haiku (power by
+        anthropic) to predict the inappropriateness of a comment
       </h3>
       <label for="comment">Enter Comment:</label>
-      <form id="apiForm" action="/predict/localmodel" method="GET">
+      <form id="apiForm" action="/predict" method="GET">
         <div class="form-group"></div>
         <div class="form-group">
           <textarea
@@ -77,11 +77,11 @@
           ></textarea>
         </div>
         <label for="apiEndpoint">Choose API Endpoint:</label>
-        <select id="apiEndpoint" name="apiEndpoint" onchange="changeAction()">
-          <option value="/predict/localmodel">
+        <select id="apiEndpoint" name="apiEndpoint" >
+          <option value="localmodel">
             Predict by local model(english only)
           </option>
-          <option value="/predict/haiku">
+          <option value="haiku">
             Predict by large model by haiku(power by anthropic)
           </option>
         </select>
@@ -95,20 +95,12 @@
       </form>
     </div>
     <script>
-      function changeAction() {
-        var form = document.getElementById("apiForm");
-        var endpoint = document.getElementById("apiEndpoint").value;
-        form.action = endpoint;
-      }
-
       function setExample(event) {
         document.getElementById("comment").value = event.target.textContent;
       }
 
-      // 获取所有的.example元素
       var exampleElements = document.querySelectorAll(".example");
 
-      // 为每一个.example元素添加点击事件
       exampleElements.forEach(function (element) {
         element.addEventListener("click", setExample);
       });

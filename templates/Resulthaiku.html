@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Detection Result</title>
-</head>
-<body>
+    <style>
+      .toxic {
+        color: red;
+      }
+      .nontoxic {
+        color: green;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+    </style>
+  </head>                                                                                                                                                                          
+  <body>
     <h1>Detection Result</h1>
-    <p>Is Toxic: {{ result['IsToxic'] }}</p>
-    <p>Toxic Sort: {{ result['ToxicSort'] }}</p>
+    <p id="isToxic">Is Toxic: {{ result['IsToxic'] }}</p>
+    <p>Toxic Sort: <span id="toxicSort">{{ result['ToxicSort']|join(', ') }}</span></p>
     <a href="/">Back</a>
-</body>
+
+    <script>
+      // 获取IsToxic元素
+      var isToxicElement = document.getElementById('isToxic');
+      // 根据IsToxic的值设置类名
+      isToxicElement.className = isToxicElement.textContent.includes('True') ? 'toxic' : 'nontoxic';
+    </script>
+  </body>
 </html>

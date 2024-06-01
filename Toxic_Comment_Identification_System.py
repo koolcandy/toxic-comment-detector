@@ -14,21 +14,21 @@ def get_result_en(words):
         result['isToxic'] = 'yes'
     else:
         result['isToxic'] = 'no'
-    print(result)
     return result
 app = Flask(__name__)
 
-@app.route("/predict/localmodel", methods=["GET"])
-def predictLocal():
-    comment = request.args.get("comment")
-    result = get_result_en(comment)
-    return render_template('ShowEnResult.html', result=result, comment=comment)
-    
-@app.route("/predict/haiku", methods=["GET"])
-def predectkaiku():
-    comment = request.args.get("comment")
-    result = ToxicDetectorKaiku.detect_toxicity(comment)
-    return render_template('Resulthaiku.html', result=result)
+@app.route("/predict", methods=["GET"])
+def predict():
+    if  (request.args.get("apiEndpoint") == "localmodel"):
+        comment = request.args.get("comment")
+        result = get_result_en(comment)
+        print(result)
+        return render_template('ShowEnResult.html', result=result, comment=comment)
+    else:
+        comment = request.args.get("comment")
+        result = ToxicDetectorKaiku.detect_toxicity(comment)
+        print(result)
+        return render_template('Resulthaiku.html', result=result)
 
 @app.route("/")
 def home():
