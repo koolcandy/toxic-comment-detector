@@ -149,3 +149,4 @@ test2.py
 *.pkl
 log.txt
 config.json
+*.pth
