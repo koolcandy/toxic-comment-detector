@@ -1,3 +1,4 @@
+import json
 import requests
 
 def main(comment):
@@ -19,7 +20,7 @@ def main(comment):
 
     response = requests.post(url, json=data)
 
-    return(response.json()['response']).replace(" ", "").replace("\n", "")
+    return(json.loads(response.json()['response']))
 
 if __name__ == "__main__":
     print(main("大ばか、死ね、地獄に落ちろ"))

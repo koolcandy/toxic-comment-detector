@@ -30,7 +30,8 @@ def predict():
     if  (request.args.get("apiEndpoint") == "llama"):
         comment = request.args.get("comment")
         result = ToxicDectorllama8b.main(comment)
-        print(result)
+        print(type(result))
+
         return render_template('Resultllama.html', result=result)
     else:
         return "Error method!!!"
