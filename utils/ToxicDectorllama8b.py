@@ -19,7 +19,11 @@ def main(comment):
 
     response = requests.post(url, json=data)
 
-    return(response.json()['response'])
+    return(response.json()['response']).replace(" ", "").replace("\n", "")
 
 if __name__ == "__main__":
-    print(main('sabu violent piece crap dis guy violent hits people steel chairs triple jump moonsaults ppl thru tables coud put som thru burning table could kill taughtby uncle bombay india user dark hooded smoker'))
+    print(main("大ばか、死ね、地獄に落ちろ"))
+    print(main("大笨蛋,去死吧,下地狱吧"))
+    print(main("바보야, 죽어라, 지옥에 가라"))
+
+

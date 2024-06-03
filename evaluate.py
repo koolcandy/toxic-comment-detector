@@ -23,15 +23,15 @@ def main():
             BERT_score += 1
             # IsBertRight = True
 
-
-        if json.loads(ToxicDectorllama8b.main(comment[i]))['isToxic'] == (False if score[i] == 1 else True):
-            llama_score += 1
-
-        # if (IsLstmRight == False) and (IsBertRight == True):
-        #     print(f'BERT is better at: {comment[i]}')
+        try:
+            if json.loads(ToxicDectorllama8b.main(comment[i]))['isToxic'] == (False if score[i] == 1 else True):
+                llama_score += 1
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            continue
+            
                
         print(f'\rLSTM model accuracy: {LSTM_score/i}, BERT model accuercy: {BERT_score/i}, llama model accuercy: {llama_score/i} ', end='')
         
-
 if __name__ == '__main__':
     main()
