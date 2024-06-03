@@ -1,4 +1,4 @@
-import os
+
 from cleantext import clean
 import torch
 import pandas as pd
@@ -7,8 +7,9 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+import transformers
+transformers.logging.set_verbosity_error()
 
-# 检查GPU是否可用
 device = ''
 if torch.cuda.is_available():
     device = 'cuda'
@@ -19,6 +20,11 @@ else:
     
 device = torch.device(device)
 print(f'Using device: {device}')
+
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
+model.load_state_dict(torch.load('model/model.pth', map_location=torch.device('cpu')))
+model.to(device)
 
 class TextDataset(Dataset):
     def __init__(self, encodings, labels):
@@ -34,18 +40,13 @@ class TextDataset(Dataset):
         return len(self.labels)
 
 def train():
-    df_train = pd.read_csv(os.path.join('toxic_content.csv'))
+    df_train = pd.read_csv('datas/toxic_content.csv')
     df_train['comment_text'] = df_train['comment_text'].apply(lambda text: clean(text))
 
     X = df_train['comment_text']
     y = df_train['toxic']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    # 加载预训练的BERT模型和tokenizer
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-    model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
-    model.to(device)  # 将模型移动到GPU上
 
     # 对数据进行tokenization
     X_train_encoded = tokenizer.batch_encode_plus(list(X_train.values), padding=True, truncation=True, max_length=512, return_tensors='pt')
@@ -93,10 +94,8 @@ def train():
 
             if (accuracy.item() >= 0.99) :
                 print("accuracy is ok now, save the model")
-                torch.save(model.state_dict(), 'model.pth')
+                torch.save(model.state_dict(), 'model/model.pth')
                 break
-
-
 
     epochs = list(loss_dict.keys())
     loss_values = list(loss_dict.values())
@@ -110,11 +109,6 @@ def train():
     plt.savefig('loss_plot.png')
 
 def getResult(text):
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-    model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
-    model.load_state_dict(torch.load('model.pth'))
-    model.to(device)
-
     model.eval()
     with torch.no_grad():
         text = clean(text)

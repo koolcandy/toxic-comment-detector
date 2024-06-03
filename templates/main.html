@@ -78,11 +78,14 @@
         </div>
         <label for="apiEndpoint">Choose API Endpoint:</label>
         <select id="apiEndpoint" name="apiEndpoint" >
-          <option value="localmodel">
-            Predict by local model(english only)
+          <option value="localmodel(LSTM)">
+            Predict by local model(LSTM, english only)
           </option>
-          <option value="haiku">
-            Predict by large model by haiku(power by anthropic)
+          <option value="localmodel(BERT)">
+            Predict by local localmodel(BERT, english only)
+          </option>
+          <option value="llama">
+            Predict by large model by llama:8b
           </option>
         </select>
         <br />
@@ -90,8 +93,8 @@
         <br />
         <h4 class="example">I am a good person, I love you all</h4>
         <h4 class="example">I am a bad person, I hate you all</h4>
-        <h4 class="example">大笨蛋, 讨厌你, 哼~~</h4>
-        <h4 class="example">你好可爱啊, 爱你😍</h4>
+        <h4 class="example">笨蛋, 讨厌你</h4>
+        <h4 class="example">爱你哦</h4>
       </form>
     </div>
     <script>
