@@ -26,12 +26,11 @@ def predict():
         result = GetResultbybert.getResult(comment)
         result['isToxic'] = False if result['isToxic'] == 1 else True
         print(result)
-        return result
+        return render_template('ShowEnResult1.html',  result=result, comment=comment)
     if  (request.args.get("apiEndpoint") == "llama"):
         comment = request.args.get("comment")
         result = ToxicDectorllama8b.main(comment)
         print(type(result))
-
         return render_template('Resultllama.html', result=result)
     else:
         return "Error method!!!"
