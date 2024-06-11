@@ -1,14 +1,13 @@
 import os
 from utils import ShowToxicLevel, ShowIsToxic, GetResultbybert, ToxicDectorllama8b
-from textblob import TextBlob
 from flask import Flask, render_template, request
 # encoding:utf-8
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 def get_result_en(words):
-    isToxic = ShowIsToxic.getResult(TextBlob(words))
-    toxicLevel = ShowToxicLevel.getResult(TextBlob(words))
+    isToxic = ShowIsToxic.getResult(words)
+    toxicLevel = ShowToxicLevel.getResult(words)
     result = {**isToxic, **toxicLevel}
     result['isToxic'] = False if result['isToxic'] == 1 else True
     return result
